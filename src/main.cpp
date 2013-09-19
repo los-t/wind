@@ -3,6 +3,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+const float DELTA = 10.f;
+
 int main() {
 	std::cout << "Starting up" << std::endl;
 	
@@ -19,6 +21,27 @@ int main() {
 			if ((event.type == sf::Event::KeyPressed) &&
 					(event.key.code == sf::Keyboard::Escape))
 				window.close();
+			switch (event.type) {
+				case sf::Event::KeyPressed:
+					if (event.key.code == sf::Keyboard::Escape)
+						window.close();
+					else {
+						switch (event.key.code) {
+							case sf::Keyboard::Up: shape.move(0.f, -1.f *DELTA); break;
+							case sf::Keyboard::Down: shape.move(0.f, DELTA); break;
+							case sf::Keyboard::Left: shape.move(-1.f * DELTA, 0.f); break;
+							case sf::Keyboard::Right: shape.move(DELTA, 0.f); break;
+
+							default: break;
+						}
+					}
+					break;
+				case sf::Event::Closed:
+					window.close();
+					break;
+
+				default: break;
+			}
 		}
 
 		window.setActive();

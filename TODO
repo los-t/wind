@@ -1,3 +1,14 @@
 Yet to be done:
 
+Infra:
 - Compile into ./bin/ directory
+
+Logic:
+- Move the basic shape around
+	- arrows
+		+ distinctly pressed
+		- simultaneously pressed
+	- collisions
+
+Architecture:
+	- Encapsulate the renderer part
