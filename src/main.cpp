@@ -4,8 +4,10 @@
 #include <GL/gl.h>
 #include <SFML/Window.hpp>
 
-#include "shader.h"
-#include "shape.h"
+#include "gl/loader.h"
+#include "gl/model.h"
+#include "gl/render.h"
+#include "gl/scene.h"
 
 const float DELTA = 10.f;
 
@@ -26,7 +28,10 @@ int main() {
 	}
 
 	try {
-		gfx::Shape shape;
+		gl::Model m = gl::Loader::load();
+		gl::Scene scn; scn.push(m);
+		gl::Render render;
+
 		bool running = true;
 		while (running) {
 			for (sf::Event event; window.pollEvent(event); ) {
@@ -64,15 +69,12 @@ int main() {
 
 			window.setActive();
 
-			glClearColor(0.0, 0.0, 0.0, 1.0);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			shape.draw();
+			render.update(scn);
 
 			window.display();
 		}
-	} catch (gfx::gl::Exception &e) {
-		std::cout << e << std::endl;
+	} catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 
 	std::cout << "Shutting down" << std::endl;
