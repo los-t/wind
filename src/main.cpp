@@ -9,7 +9,6 @@
 #include "gl/render.h"
 #include "gl/scene.h"
 
-const float DELTA = 10.f;
 
 int main() {
 	std::cout << "Starting up" << std::endl;
@@ -42,18 +41,7 @@ int main() {
 
 				switch (event.type) {
 					case sf::Event::KeyPressed:
-						if (event.key.code == sf::Keyboard::Escape)
-							running = false;
-						else {
-							switch (event.key.code) {
-								//case sf::Keyboard::Up: shape.move(0.f, -1.f *DELTA); break;
-								//case sf::Keyboard::Down: shape.move(0.f, DELTA); break;
-								//case sf::Keyboard::Left: shape.move(-1.f * DELTA, 0.f); break;
-								//case sf::Keyboard::Right: shape.move(DELTA, 0.f); break;
-
-								default: break;
-							}
-						}
+						running = (event.key.code != sf::Keyboard::Escape);
 						break;
 					case sf::Event::Closed:
 						running = false;
