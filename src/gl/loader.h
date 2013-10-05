@@ -27,8 +27,8 @@ namespace gl {
 		"#version 120\n"
 		" void main(void) {"
 		"   gl_FragColor[0] = 0.0;"
-		"   gl_FragColor[1] = 0.0;"
-		"   gl_FragColor[2] = gl_FragCoord[0]*0.001;"
+		"   gl_FragColor[1] = 1.0;"
+		"   gl_FragColor[2] = 0.0;"
 		" }";
 
 	const std::vector<float> vertices = {
@@ -48,7 +48,7 @@ namespace gl {
 					.attribute = get_attribute(mod.program, "coord3d"),
 					.vertices = &vertices[0],
 					.vert_count = vertices.size()/3,
-					.draw_as = GL_TRIANGLE_STRIP,
+					.draw_as = GL_LINE_LOOP,
 				};
 
 				return mod;
