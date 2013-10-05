@@ -28,7 +28,7 @@ int main() {
 	}
 
 	try {
-		gl::Model m = gl::Loader::load();
+		gl::Model m = gl::Loader::load("assets/sphere");
 		gl::Scene scn; scn.push(m);
 		gl::Render render;
 

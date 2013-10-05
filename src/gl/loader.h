@@ -8,7 +8,10 @@
 #ifndef WIND_GL_LOADER_H_
 #define WIND_GL_LOADER_H_
 
+#include <iostream>
 #include <stdexcept>
+#include <fstream>
+#include <string>
 
 #include <GL/glew.h>
 
@@ -16,21 +19,6 @@
 #include "gl/types.h"
 
 namespace gl {
-	const std::string vshader =
-		"#version 120\n"
-		" attribute vec3 coord3d;"
-		" void main(void) {"
-		"   gl_Position = vec4(coord3d, 1.0);"
-		" }";
-
-	const std::string fshader =
-		"#version 120\n"
-		" void main(void) {"
-		"   gl_FragColor[0] = 0.0;"
-		"   gl_FragColor[1] = 1.0;"
-		"   gl_FragColor[2] = 0.0;"
-		" }";
-
 	const std::vector<float> vertices = {
 		0.0, 0.0, 0.0,
 		0.0, 0.8, 0.0,
@@ -40,9 +28,14 @@ namespace gl {
 
 	class Loader {
 		public:
-			static Model load() {
+			static Model load(const std::string& path) {
+
+				const std::string vshader = read_shader(path + "/vertex.glsl");
 				shader_t vs = compile_shader(vshader, GL_VERTEX_SHADER);
+
+				const std::string fshader = read_shader(path + "/fragment.glsl");
 				shader_t fs = compile_shader(fshader, GL_FRAGMENT_SHADER);
+
 				Model mod = {
 					.program = build_program({vs, fs}),
 					.attribute = get_attribute(mod.program, "coord3d"),
@@ -56,6 +49,19 @@ namespace gl {
 
 		private:
 			static const size_t MAX_LOG_LEN = 512;
+
+			static std::string read_shader(const std::string& path) {
+
+				std::ifstream strm(path);
+				std::string buf;
+
+				for (std::string line; std::getline(strm, line); )
+					buf += line + "\n";
+
+				std::cout << "READ " << path << std::endl
+					<< buf << std::endl;
+				return buf;
+			}
 
 			static shader_t compile_shader(const std::string &body, shader_type_t t) {
 				shader_t shader = glCreateShader(t);
