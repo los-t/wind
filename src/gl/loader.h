@@ -8,7 +8,6 @@
 #ifndef WIND_GL_LOADER_H_
 #define WIND_GL_LOADER_H_
 
-#include <iostream>
 #include <stdexcept>
 #include <fstream>
 #include <string>
@@ -57,9 +56,7 @@ namespace gl {
 
 				for (std::string line; std::getline(strm, line); )
 					buf += line + "\n";
-
-				std::cout << "READ " << path << std::endl
-					<< buf << std::endl;
+				
 				return buf;
 			}
 
