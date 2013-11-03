@@ -39,8 +39,9 @@ namespace gl {
 					.program = build_program({vs, fs}),
 					.attribute = get_attribute(mod.program, "coord3d"),
 					.vertices = &vertices[0],
-					.vert_count = vertices.size()/3,
-					.draw_as = GL_LINE_LOOP,
+					.components = 3,
+					.vert_count = vertices.size()/mod.components,
+					.draw_as = GL_TRIANGLE_STRIP,
 				};
 
 				return mod;
@@ -56,7 +57,7 @@ namespace gl {
 
 				for (std::string line; std::getline(strm, line); )
 					buf += line + "\n";
-				
+
 				return buf;
 			}
 

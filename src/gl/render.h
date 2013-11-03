@@ -28,7 +28,7 @@ namespace gl {
 					glEnableVertexAttribArray(model.attribute);
 					glVertexAttribPointer(
 							model.attribute,
-							model.vert_count,
+							model.components,
 							GL_FLOAT,
 							GL_FALSE, 0,
 							model.vertices);

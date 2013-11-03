@@ -16,6 +16,7 @@ namespace gl {
 		program_t program;
 		attribute_t attribute;
 		const vertex_t *vertices;
+		size_t components;
 		size_t vert_count;
 		drawable_t draw_as;
 	};
